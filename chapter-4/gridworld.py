@@ -23,10 +23,6 @@ class GridWorld:
         self.state_value = np.zeros((size, size))
         return
 
-    def is_terminal(self, state):
-        size = len(self.state_value) - 1
-        return (state == (0, 0)) or (state == (size, size))
-
     def reset(self):
         self.state_value = np.zeros((size, size))
         return
