@@ -6,5 +6,5 @@
 
 This repository contains a python implementation of the concepts described in the book _Reinforcement Learning: An Introduction_, by Sutton and Barto.
 
-Please, feel free to raise issues to ask questions or flag flaws and mistakes in the implementation.
-And give it a start, if you found this useful :)
+Please, feel free to raise issues to ask questions or flag flaws and mistakes in the implementation.  
+Should you find this useful for you, I would be grateful if you'd _star_:star: it :)
