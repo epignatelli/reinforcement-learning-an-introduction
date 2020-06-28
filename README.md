@@ -12,8 +12,8 @@ Please, feel free to raise issues to ask questions or flag flaws and mistakes in
 Should you find this useful for you, I would be grateful if you'd _star_:star: it :)
 
 
-### Available problems
----
+## Available problems
+
 #### Chapter 1
   - [Tic tac toe](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-1/tic_tac_toe.py)
 
