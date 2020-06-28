@@ -27,7 +27,27 @@ class CarRental:
         self.reset()
         return
 
+    def step(self, state, action):
+        """
+        Run one timestep of the environment's dynamics.
+
+        Args:
+            state (Tuple[int, int]): A tuple storing the number of available locations, respectively at A and B
+            action (int): The number of cars to be moved
+
+        Returns:
+            (Tuple[Tuple[int, int], float]): The new state of the system, and its correspondent reward
+        """
+        morning_n1 = int(state[0] - action)
+        morning_n2 = int(state[1] + action)
+        new_state = (morning_n1, morning_n2)
+        reward = self.get_reward(new_state)
+        return new_state, reward
+
     def reset(self):
+        """
+        Resets the state of the environment and returns an initial observation.
+        """
         self._poisson_prob = {}
         self.state_values = np.zeros((MAX_CARS + 1, MAX_CARS + 1))
         self.policy = np.zeros((MAX_CARS + 1, MAX_CARS + 1), np.int32)
@@ -35,14 +55,10 @@ class CarRental:
         self._probs_2, self._rewards_2 = self.precompute_model(REQUEST_2_LAMBDA, DROPOFF_B_LAMBDA)
         return
 
-    def step(self, state, action):
-        morning_n1 = int(state[0] - action)
-        morning_n2 = int(state[1] + action)
-        new_state = (morning_n1, morning_n2)
-        reward = self.get_reward(new_state)
-        return new_state, reward
-
     def render(self):
+        """
+        Plots the current value table and the current policy
+        """
         # plot value table
         fig, ax = plt.subplots(1, 2, figsize=(15, 5))
         sns.heatmap(self.state_values, cmap="gray", ax=ax[0])
@@ -58,12 +74,41 @@ class CarRental:
         return fig, ax
 
     def get_transition_probability(self, state, new_state):
+        """
+        Args:
+            state (Tuple[int, int]): A tuple storing the number of available locations, respectively at A and B
+            new_state (Tuple[int, int]): A possible future state of the environment
+
+        Returns:
+            (float): The probability that the system transitions from a state `s` to a state `s'`.
+        """
         return self._probs_1[(state[0], new_state[0])] * self._probs_2[(state[1], new_state[1])]
 
     def get_reward(self, state):
+        """
+        Computes the reward for the given state.
+
+        Args:
+            state (Tuple[int, int]): A tuple storing the number of available locations, respectively at A and B
+
+        Returns:
+            (float): The expected reward for the given state
+        """
         return self._rewards_1[state[0]] + self._rewards_2[state[1]]
 
     def get_valid_action(self, state, action):
+        """
+        Return an action that is compatible with the current state of the system.
+        For example, if there are 2 cars available at location 1, and the action is to move 3 cars from location 1,
+        the function will clip the value at 2.
+
+        Args:
+            state (Tuple[int, int]): A tuple storing the number of available locations, respectively at A and B
+            action (int): The number of cars to be moved
+
+        Returns:
+            (int): a feasible number of cars to be moved
+        """
         cars_at_1, cars_at_2 = state
         # Jack can't move more cars than he has available
         action = max(-cars_at_2, min(action, cars_at_1))
@@ -72,15 +117,47 @@ class CarRental:
         return action
 
     def get_available_actions(self, state):
+        """
+        Return the list of actions compatible with the current state of the system.
+
+        Args:
+            state (Tuple[int, int]): A tuple storing the number of available locations, respectively at A and B
+
+        Returns:
+            (List[int]): The list of actions compatible with the current state of the system.
+        """
         return list(range(max(-MAX_CARS, - state[1]), min(MAX_CARS, state[0]) + 1))
 
     def poisson_probability(self, n, lam):
+        """
+        Computes the probability that the number drawn from a poisson distribution is `n`, given a lamdda of `lam`.
+        `$p = e^(-λ) * (λ^n / n!)$
+
+        Args:
+            n (int): the number expected to be drawn from the distribution
+            lam (int): the λ parameter of the poisson distribution
+
+        Returns:
+            (float): the probability that the number is `n`
+        """
         key = (n, lam)
         if key not in self._poisson_prob:
             self._poisson_prob[key] = math.exp(-lam) * (math.pow(lam, n) / math.factorial(n))
         return self._poisson_prob[key]
 
     def precompute_model(self, lambda_requests, lambda_dropoffs):
+        """
+        Precomputes the model dynamics for efficiency: the reward and the transition probabilities.
+        Calculates the expected rewards for a range of requests from 0 to MAX_CARS + max(ACTIONS) + 1, and stores them into a privare array.
+        Calculates the probability that the system transitions from a state `s` to a state `s'`.
+
+        Args:
+            lambda_requests (int): the λ parameter of the poisson distribution that describes the requests
+            lambda_dropoffs (int): the λ parameter of the poisson distribution that describes the dropoffs
+
+        Returns:
+            (Tuple[numpy.ndarray, numpy.ndarray]): The array of system transitions probabilities and the array of expected rewards
+        """
         P, R = {}, {}
         requests = 0
         for requests in range(MAX_CARS + max(ACTIONS) + 1):
@@ -104,9 +181,11 @@ class CarRental:
         """
         Solves the bellman expectation equation for given state
         V(s) = p(s, r | s' π(s)) * (R(s) + γ * V(s'))
+
         Args:
             state (Tuple[int, int]): a tuple storing the number of available locations, respectively at A and B
-            action (int): The key to the action dict
+            action (int): The number of cars to be moved
+
         Returns:
             (float): the value V(s) of the current state pair
         """
@@ -124,8 +203,7 @@ class CarRental:
         """
         Computes the true value table for the current policy using iterative policy evaluation.
         At the end of the process it updates the state-value table with the newly computed value function.
-        Args:
-            env (CarRental): The CarRental environment, which contains the model dynamics, the active policy and the state-value table
+
         Returns:
             (numpy.ndarray): The value function of the current policy stored as a 2D array
         """
@@ -157,6 +235,7 @@ class CarRental:
         Makes one step of policy improvement following a greedy policy.
         For each state of the model, it iterates through all the feasible actions and finds the greediest one.
         The current policy is updated synchronously for each state, i.e. only after all the states have been visited.
+
         Returns:
             (bool): True if the policy has not improved
         """
@@ -183,12 +262,13 @@ class CarRental:
         Computes the optimal policy π* using policy iteration.
         Convergence is guaranteed since the MDP has only a finite number of policies.
         Note that the optimal policy might not be unique.
+
         Args:
             plot (bool): If true, self.render() will be called at each evaluation/iteration step
+
         Returns:
             (numpy.ndarray): The optimal policy
         """
-        # policy evaluation/improvement loop
         iteration = 1
         if plot:
             self.render()
