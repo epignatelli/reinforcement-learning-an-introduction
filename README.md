@@ -10,3 +10,12 @@ This repository contains a python implementation of the concepts described in th
 
 Please, feel free to raise issues to ask questions or flag flaws and mistakes in the implementation.  
 Should you find this useful for you, I would be grateful if you'd _star_:star: it :)
+
+
+### Available problems 
+#### Chapter 1
+  - [Tic tac toe](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-1/tic_tac_toe.py)
+
+#### Chapter 4
+  - [GridWorld](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gridworld.py)
+  - [Jack's car rental](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/car_rental.py)
