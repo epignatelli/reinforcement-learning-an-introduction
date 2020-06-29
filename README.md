@@ -17,6 +17,9 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
 #### Chapter 1
   - [Tic tac toe](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-1/tic_tac_toe.py)
 
+#### Chapter 2
+  - WIP
+
 #### Chapter 4
   - [GridWorld](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gridworld.py)
   - [Jack's car rental](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/car_rental.py)
