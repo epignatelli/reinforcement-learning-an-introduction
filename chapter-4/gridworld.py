@@ -76,20 +76,6 @@ class GridWorld:
             value += probs[c] * (reward + discount * self.state_value[s_1])
         return value
 
-    def bellman_optimality(self, state, action, probs):
-        """
-        Makes a one step lookahead and applies the bellman optimality equation.
-        Args:
-            state (Tuple[int, int]): the x, y indices that define the address on the value table
-            probs (List[float]): transition probabilities for each action
-            in_place (bool): if False, the value table is updated after all the new values have been calculated.
-                             if True the state [i, j] will new already new values for the states [< i, < j]
-        Returns:
-            (numpy.ndarrray): the new value for the specified state
-        """
-        # absorbing state
-        raise NotImplementedError
-
 
 def policy_evaluation(env, policy=None, steps=1, discount=1., in_place=False):
     """
