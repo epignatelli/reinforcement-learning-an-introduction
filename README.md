@@ -30,3 +30,8 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
 
 #### Chapter 5: Monte Carlo Methods
   - 
+
+
+## References
+[1] R.  S.  Sutton,  A.  G.  Barto,  et  al. Reinforcement  Learning:  an  Introduction.  MIT  pressCambridge, 2018.
+[2] Original Code, 2nd Edition. http://incompleteideas.net/book/code/code2nd.html
