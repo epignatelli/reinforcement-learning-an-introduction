@@ -14,16 +14,19 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
 
 ## Available problems
 
-#### Chapter 1
+#### Chapter 1: Introduction
   - [Tic tac toe](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-1/tic_tac_toe.py)
 
-#### Chapter 2
+#### Chapter 2: Multi-armed Bandits
   - WIP
 
-#### Chapter 3
+#### Chapter 3:  Finite Markov Decision Processes
   - WIP
 
-#### Chapter 4
-  - [GridWorld](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gridworld.py)
-  - [Jack's car rental](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/car_rental.py)
-  - [Gambler's Problem](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gamblers_problem.py)
+#### Chapter 4: Dynamic Programming
+  - [GridWorld](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gridworld.py): Iterative Policy Evaluation
+  - [Jack's car rental](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/car_rental.py): Policy Iteration
+  - [Gambler's Problem](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gamblers_problem.py): Value Iteration
+
+#### Chapter 5: Monte Carlo Methods
+  - 
