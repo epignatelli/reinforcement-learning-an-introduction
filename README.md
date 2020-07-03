@@ -24,9 +24,9 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
   - Scheduled
 
 #### Chapter 4: Dynamic Programming
-  - [GridWorld](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gridworld.py): Iterative Policy Evaluation
-  - [Jack's car rental](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/car_rental.py): Policy Iteration
-  - [Gambler's Problem](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gamblers_problem.py): Value Iteration
+  - [GridWorld: Iterative Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gridworld.py)
+  - [Jack's car rental: Policy Iteration](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/car_rental.py)
+  - [Gambler's Problem: Value Iteration](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gamblers_problem.py)
 
 #### Chapter 5: Monte Carlo Methods
   - [WIP] [Blackjack: Monte Carlo Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5/blackjack.py)
