@@ -10,7 +10,7 @@ ACTIONS = [
     ]
 
 DECK = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]  # [A, 2, 3, 4, 5, 6, 7, 8, 9, J, Q, K]
-THETA = 1e3
+
 
 class Blackjack:
     """
@@ -86,7 +86,6 @@ class Blackjack:
         plt.show()
     
 def mc_policy_evaluation(env, policy):
-    delta = float("inf")
     counts = np.ones_like(env.values) * 1e-6
     for k in range(10000):
         # run episode
