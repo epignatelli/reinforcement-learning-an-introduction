@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 import random
 
 
@@ -17,6 +19,9 @@ class Blackjack:
     def __init__(self):
         self.values = np.zeros((32, 11, 2))
         self.reset()
+        
+    def __str__(self):
+        return "Player: {}, Dealer: {}".format(self.player, self.dealer)
     
     def deal(self, n=1):
         """
@@ -35,7 +40,7 @@ class Blackjack:
         """
         Check if the hand is a natural, and Ace and a Figure or a 10.
         """
-        return 1 in self.player and 10 in self.player and len(cards) == 2
+        return sorted(cards) == [1, 10]
     
     def get_observation(self):
         """
@@ -66,25 +71,39 @@ class Blackjack:
                 return self.get_observation(), +1, True
             elif self.score(self.dealer) == self.score(self.player):
                 return self.get_observation(), 0, True
-        return self.get_observation(), 0, False
+        return self.get_observation(), 0, True
     
     def render(self):
-        print("Player: {}, Dealer: {}".format(self.player, self.dealer))
+        fig, ax = plt.subplots(1, 2, figsize=(15, 5))
+        sns.heatmap(self.values[12:21, :, 0], cmap="gray", vmin=-1, vmax=1, ax=ax[0])
+        ax[0].set_title("No usable Ace")
+        ax[0].set_xlabel("Dealer showing")
+        ax[0].set_ylabel("Player showing")
+        sns.heatmap(self.values[12:21, :, 1], cmap="gray", vmin=-1, vmax=1, ax=ax[1])
+        ax[1].set_title("Usable Ace")
+        ax[1].set_xlabel("Dealer showing")
+        ax[1].set_ylabel("Player showing")
+        plt.show()
     
 def mc_policy_evaluation(env, policy):
     delta = float("inf")
-    while delta > THETA:
+    counts = np.ones_like(env.values) * 1e-6
+    for k in range(10000):
         # run episode
         obs, done = env.reset()
         while not done:
             obs, reward, done = env.step(policy[obs])
-        old_value = self.values[obs]
-        self.values[obs]
-            
+#             print(obs)
+        env.values[obs] += reward
+        counts[obs] += 1
+    return env.values / counts
     
 if __name__ == "__main__":
+    # default policy
     policy = np.ones((32, 11, 2))  # always hits
     policy[20:] = 0  # stick if score is above 20
     
+    # policy iteration
     env = Blackjack()
-    values = mc_policy_evaluation(env, policy)
+    env.values = mc_policy_evaluation(env, policy)
+    env.render()
