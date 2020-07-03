@@ -85,7 +85,7 @@ class Blackjack:
         ax[1].set_ylabel("Player showing")
         plt.show()
     
-def mc_policy_evaluation(env, policy):
+def mc_policy_evaluation(env, policy, first_visit=True):
     counts = np.ones_like(env.values) * 1e-6
     for k in range(10000):
         # run episode
@@ -93,7 +93,8 @@ def mc_policy_evaluation(env, policy):
         while not done:
             obs, reward, done = env.step(policy[obs])
 #             print(obs)
-        env.values[obs] += reward
+        if counts[obs] > 0:
+            env.values[obs] += reward
         counts[obs] += 1
     return env.values / counts
     
