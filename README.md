@@ -29,7 +29,7 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
   - [Gambler's Problem](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gamblers_problem.py): Value Iteration
 
 #### Chapter 5: Monte Carlo Methods
-  - [WIP] Blackjack: Monte Carlo Policy Evaluation
+  - [WIP] [Blackjack: Monte Carlo Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5/blackjack.py
 
 
 ## References
