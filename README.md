@@ -18,10 +18,10 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
   - [Tic tac toe](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-1/tic_tac_toe.py)
 
 #### Chapter 2: Multi-armed Bandits
-  - WIP
+  - Scheduled
 
 #### Chapter 3:  Finite Markov Decision Processes
-  - WIP
+  - Scheduled
 
 #### Chapter 4: Dynamic Programming
   - [GridWorld](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gridworld.py): Iterative Policy Evaluation
