@@ -71,15 +71,20 @@ class Blackjack:
                 return self.get_observation(), +1, True
             elif self.score(self.dealer) == self.score(self.player):
                 return self.get_observation(), 0, True
-        return self.get_observation(), 0, True
+        p_score = self.score(self.player)
+        d_score = self.score(self.dealer)
+        reward = 1 if p_score > d_score else 0 if p_score == d_score else -1
+        return self.get_observation(), reward, True
     
     def render(self):
+        xticklabels = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+        yticklabels = range(12, 22)
         fig, ax = plt.subplots(1, 2, figsize=(15, 5))
-        sns.heatmap(self.values[12:21, :, 0], cmap="gray", vmin=-1, vmax=1, ax=ax[0])
+        sns.heatmap(self.values[12:22, 1:, 0], cmap="gray", vmin=-1, vmax=1, xticklabels=xticklabels, yticklabels=yticklabels, annot=True, ax=ax[0])
         ax[0].set_title("No usable Ace")
         ax[0].set_xlabel("Dealer showing")
         ax[0].set_ylabel("Player showing")
-        sns.heatmap(self.values[12:21, :, 1], cmap="gray", vmin=-1, vmax=1, ax=ax[1])
+        sns.heatmap(self.values[12:22, 1:, 1], cmap="gray", vmin=-1, vmax=1, xticklabels=xticklabels, yticklabels=yticklabels, annot=True, ax=ax[1])
         ax[1].set_title("Usable Ace")
         ax[1].set_xlabel("Dealer showing")
         ax[1].set_ylabel("Player showing")
