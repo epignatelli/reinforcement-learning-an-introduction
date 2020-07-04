@@ -85,7 +85,7 @@ class Blackjack:
         if action:  # hit
             self.player += self.deal()
             if self.score(self.player) > 21:  # bust?
-                return self.get_observation(), -1., True
+                return self.get_observation(), -100., True
             else:  # if the player hits, the dealers doesn't play
                 # the episode does not end, the player may want to hit again
                 return self.get_observation(), 0., False
@@ -111,7 +111,7 @@ class Blackjack:
     def render(self):
         xticklabels = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
         yticklabels = range(12, 22)
-        fig, ax = plt.subplots(1, 2, figsize=(20, 9))
+        fig, ax = plt.subplots(2, 1, figsize=(7, 25))
         sns.heatmap(self.values[12:22, 1:, 0], cmap="RdBu", vmin=-1, vmax=1,
                     xticklabels=xticklabels, yticklabels=yticklabels, annot=True, ax=ax[0])
         ax[0].set_title("V(π) with no usable Ace")
@@ -122,7 +122,6 @@ class Blackjack:
         ax[1].set_title("V(π) with usable Ace")
         ax[1].set_xlabel("Dealer showing")
         ax[1].set_ylabel("Player sum")
-        plt.tight_layout()
         plt.show()
 
 
@@ -134,10 +133,10 @@ def mc_policy_evaluation(env, policy, iterations=100000, first_visit=False):
         obs, done = env.reset()
         while not done:
             obs, reward, done = env.step(policy[obs])
-#         print(env, obs, reward, done)
-        if not (first_visit and counts[obs] == 0):
-            env.values[obs] += reward
-        counts[obs] += 1
+            print(env, obs, reward, done)
+            if not (first_visit and counts[obs] == 0):
+                env.values[obs] += reward
+            counts[obs] += 1
     print()
     return env.values / counts
 
@@ -147,11 +146,12 @@ if __name__ == "__main__":
     policy = np.ones((32, 11, 2))  # always hits
     policy[20:] = 0  # stick if score is above 20
 
-    # policy iteration
+    # policy iteration, 10k iterations
     env = Blackjack()
-    env.values = mc_policy_evaluation(env, policy, 100000)
+    env.values = mc_policy_evaluation(env, policy, 10000)
     env.render()
 
+    # policy iteration, 500k iterations
     env2 = Blackjack()
     env2.values = mc_policy_evaluation(env2, policy, 500000)
     env2.render()
