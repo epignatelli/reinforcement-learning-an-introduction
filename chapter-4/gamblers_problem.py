@@ -61,13 +61,13 @@ class GamblersProblem:
         print(self.policy())
         return
 
-    def render(self, mode="human"):
+    def render(self, values, mode="human"):
         fig, ax = plt.subplots(1, 2, figsize=(15, 5))
         # plot values
         ax[0].set_ylabel("Values\nEstimates", rotation=0, labelpad=20)
         ax[0].set_xlabel("Capital")
         l = []
-        for v in self.values:
+        for v in values:
             l.append(ax[0].plot(v,))
         ax[0].legend(["sweep1", "sweep2", "sweep3",
                       "sweep32", "Final value function"])
