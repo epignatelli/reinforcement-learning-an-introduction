@@ -56,10 +56,27 @@ class GamblersProblem:
         self.values = np.zeros((101,))
         self.values[100] = 1
         return
-
-    def render(self):
+    
+    def __str__(self):
         print(self.values)
         print(self.policy())
+        return
+    
+    def render(self, mode="human"):
+        fig, ax = plt.subplots(1, 2, figsize=(15, 5))
+        # plot values
+        ax[0].set_ylabel("Values\nEstimates", rotation=0, labelpad=20)
+        ax[0].set_xlabel("Capital")
+        l = []
+        for v in values:
+            l.append(ax[0].plot(v,))
+        ax[0].legend(["sweep1", "sweep2", "sweep3", "sweep32", "Final value function"])
+
+        # plot policy
+        ax[1].plot(self.policy(), c="black")
+        ax[1].set_ylabel("Final\nPolicy\n(stake)", rotation=0, labelpad=20)
+        ax[1].set_xlabel("Capital")
+        return
 
     def state_space(self):
         return range(WIN + 1)
@@ -127,4 +144,4 @@ class GamblersProblem:
 if __name__ == "__main__":
     env = GamblersProblem()
     iterations = env.value_iteration()
-    env.plot([iterations[0], iterations[2], iterations[3], iterations[32], iterations[-1]])
+    env.render([iterations[0], iterations[2], iterations[3], iterations[32], iterations[-1]])
