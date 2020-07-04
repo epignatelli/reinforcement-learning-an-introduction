@@ -85,7 +85,7 @@ class Blackjack:
         if action:  # hit
             self.player += self.deal()
             if self.score(self.player) > 21:  # bust?
-                return self.get_observation(), -100., True
+                return self.get_observation(), -1., True
             else:  # if the player hits, the dealers doesn't play
                 # the episode does not end, the player may want to hit again
                 return self.get_observation(), 0., False
@@ -125,7 +125,7 @@ class Blackjack:
         plt.show()
 
 
-def mc_policy_evaluation(env, policy, iterations=100000, first_visit=False):
+def mc_policy_evaluation(env, policy, iterations=10000, first_visit=True):
     counts = np.ones_like(env.values) * 1e-9
     for k in range(iterations):
         # run episode
@@ -133,7 +133,7 @@ def mc_policy_evaluation(env, policy, iterations=100000, first_visit=False):
         obs, done = env.reset()
         while not done:
             obs, reward, done = env.step(policy[obs])
-            print(env, obs, reward, done)
+            # print(env, obs, reward, done)
             if not (first_visit and counts[obs] == 0):
                 env.values[obs] += reward
             counts[obs] += 1
