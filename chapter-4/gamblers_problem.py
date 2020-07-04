@@ -39,12 +39,11 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 # OR OTHER DEALINGS IN THE SOFTWARE.
 
+import math
+import random
+import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib
-matplotlib.use("agg")
-import matplotlib.pyplot as plt
-import random
-import math
 
 
 P_H = 0.4
@@ -56,27 +55,29 @@ class GamblersProblem:
         self.values = np.zeros((101,))
         self.values[100] = 1
         return
-    
+
     def __str__(self):
         print(self.values)
         print(self.policy())
         return
-    
+
     def render(self, mode="human"):
         fig, ax = plt.subplots(1, 2, figsize=(15, 5))
         # plot values
         ax[0].set_ylabel("Values\nEstimates", rotation=0, labelpad=20)
         ax[0].set_xlabel("Capital")
         l = []
-        for v in values:
+        for v in self.values:
             l.append(ax[0].plot(v,))
-        ax[0].legend(["sweep1", "sweep2", "sweep3", "sweep32", "Final value function"])
+        ax[0].legend(["sweep1", "sweep2", "sweep3",
+                      "sweep32", "Final value function"])
 
         # plot policy
         ax[1].plot(self.policy(), c="black")
         ax[1].set_ylabel("Final\nPolicy\n(stake)", rotation=0, labelpad=20)
         ax[1].set_xlabel("Capital")
-        return
+        plt.show()
+        return fig, ax
 
     def state_space(self):
         return range(WIN + 1)
@@ -124,10 +125,12 @@ class GamblersProblem:
                 self.render()
             iteration += 1
 
-        raise ValueError("The policy did not converge. Check your inputs or look for bugs.")
+        raise ValueError(
+            "The policy did not converge. Check your inputs or look for bugs.")
 
 
 if __name__ == "__main__":
     env = GamblersProblem()
     iterations = env.value_iteration()
-    env.render([iterations[0], iterations[2], iterations[3], iterations[32], iterations[-1]])
+    env.render([iterations[0], iterations[2], iterations[3],
+                iterations[32], iterations[-1]])

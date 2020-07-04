@@ -21,14 +21,12 @@
 
 
 import matplotlib
-matplotlib.use("Agg")
-
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sn
-from  matplotlib.colors import LinearSegmentedColormap
+from matplotlib.colors import LinearSegmentedColormap
 
-W = LinearSegmentedColormap.from_list('w',["w", "w"], N=256)
+W = LinearSegmentedColormap.from_list('w', ["w", "w"], N=256)
 
 ACTIONS = {
     0: [1, 0],   # north
@@ -36,6 +34,7 @@ ACTIONS = {
     2: [0, -1],  # west
     3: [0, 1],   # east
 }
+
 
 class GridWorld:
     def __init__(self, size=4):
@@ -77,8 +76,12 @@ class GridWorld:
         fig, ax = plt.subplots(figsize=(size, size))
         if title is not None:
             ax.set_title(title)
-        ax.grid(which='major', axis='both', linestyle='-', color='k', linewidth=2)
-        return sn.heatmap(self.state_value, annot=True, fmt=".1f", cmap=W, linewidths=1, linecolor="black", cbar=False)
+        ax.grid(which='major', axis='both',
+                linestyle='-', color='k', linewidth=2)
+        sn.heatmap(self.state_value, annot=True, fmt=".1f", cmap=W,
+                   linewidths=1, linecolor="black", cbar=False)
+        plt.show()
+        return fig, ax
 
     def bellman_expectation(self, state, probs, discount):
         """
@@ -115,7 +118,8 @@ def policy_evaluation(env, policy=None, steps=1, discount=1., in_place=False):
 
     for k in range(steps):
         # cache old values if not in place
-        values = env.state_value if in_place else np.empty_like(env.state_value)
+        values = env.state_value if in_place else np.empty_like(
+            env.state_value)
         for i in range(len(env.state_value)):
             for j in range(len(env.state_value[i])):
                 # apply bellman expectation equation to each state
@@ -131,5 +135,6 @@ if __name__ == "__main__":
     # reprocuce Figure 4.1
     for k in [1, 2, 3, 10, 1000]:
         env = GridWorld(4)
+        env.render()
         value_table = policy_evaluation(env, steps=k, in_place=False)
         env.render()

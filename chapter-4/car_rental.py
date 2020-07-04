@@ -20,14 +20,9 @@
 # OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-try:
-    import jax.numpy as np
-except ImportError as e:
-    print(repr(e))
-    import numpy as np
+import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-from functools import partial
 import seaborn as sns
 import math
 
@@ -73,8 +68,10 @@ class CarRental:
         self._poisson_prob = {}
         self.state_values = np.zeros((MAX_CARS + 1, MAX_CARS + 1))
         self.policy = np.zeros((MAX_CARS + 1, MAX_CARS + 1), np.int32)
-        self._probs_1, self._rewards_1 = self.precompute_model(REQUEST_1_LAMBDA, DROPOFF_1_LAMBDA)
-        self._probs_2, self._rewards_2 = self.precompute_model(REQUEST_2_LAMBDA, DROPOFF_B_LAMBDA)
+        self._probs_1, self._rewards_1 = self.precompute_model(
+            REQUEST_1_LAMBDA, DROPOFF_1_LAMBDA)
+        self._probs_2, self._rewards_2 = self.precompute_model(
+            REQUEST_2_LAMBDA, DROPOFF_B_LAMBDA)
         return
 
     def render(self):
@@ -88,8 +85,10 @@ class CarRental:
         ax[0].set_title("Value table V_π")
         # plot policy
         cmaplist = [plt.cm.RdBu(i) for i in range(plt.cm.RdBu.N)]
-        dRbBu = matplotlib.colors.LinearSegmentedColormap.from_list('dRdBu', cmaplist, plt.cm.RdBu.N)
-        sns.heatmap(self.policy, vmin=-5, vmax=5, cmap=dRbBu, ax=ax[1], cbar_kws={"ticks": ACTIONS, "boundaries": ACTIONS})
+        dRbBu = matplotlib.colors.LinearSegmentedColormap.from_list(
+            'dRdBu', cmaplist, plt.cm.RdBu.N)
+        sns.heatmap(self.policy, vmin=-5, vmax=5, cmap=dRbBu,
+                    ax=ax[1], cbar_kws={"ticks": ACTIONS, "boundaries": ACTIONS})
         ax[1].set_ylim(0, MAX_CARS)
         ax[1].set_title("Policy π")
         plt.show()
@@ -164,7 +163,8 @@ class CarRental:
         """
         key = (n, lam)
         if key not in self._poisson_prob:
-            self._poisson_prob[key] = math.exp(-lam) * (math.pow(lam, n) / math.factorial(n))
+            self._poisson_prob[key] = math.exp(-lam) * \
+                (math.pow(lam, n) / math.factorial(n))
         return self._poisson_prob[key]
 
     def precompute_model(self, lambda_requests, lambda_dropoffs):
@@ -190,10 +190,12 @@ class CarRental:
                 R[n] += CAR_RENTAL_COST * request_prob * min(requests, n)
             dropoffs = 0
             for dropoffs in range(MAX_CARS + max(ACTIONS) + 1):
-                dropoffs_prob = self.poisson_probability(dropoffs, lambda_dropoffs)
+                dropoffs_prob = self.poisson_probability(
+                    dropoffs, lambda_dropoffs)
                 for n in range(MAX_CARS + max(ACTIONS) + 1):
                     satisfied_requests = min(requests, n)
-                    new_n = max(0, min(MAX_CARS, n + dropoffs - satisfied_requests))
+                    new_n = max(
+                        0, min(MAX_CARS, n + dropoffs - satisfied_requests))
                     if (n, new_n) not in P:
                         P[(n, new_n)] = 0.
                     P[(n, new_n)] += request_prob * dropoffs_prob
@@ -217,8 +219,10 @@ class CarRental:
         state_value = -CAR_MOVE_COST * abs(action)
         for new_n1 in range(MAX_CARS + 1):
             for new_n2 in range(MAX_CARS + 1):
-                p = self.get_transition_probability((morning_n1, morning_n2), (new_n1, new_n2))
-                state_value += p * (r + DISCOUNT * self.state_values[new_n1, new_n2])
+                p = self.get_transition_probability(
+                    (morning_n1, morning_n2), (new_n1, new_n2))
+                state_value += p * \
+                    (r + DISCOUNT * self.state_values[new_n1, new_n2])
         return state_value
 
     def policy_evaluation(self, theta=1e-3):
@@ -250,7 +254,8 @@ class CarRental:
                 print()
                 return
 
-        raise ValueError("The value table did not converge. Check your inputs or look for bugs.")
+        raise ValueError(
+            "The value table did not converge. Check your inputs or look for bugs.")
 
     def policy_improvement(self):
         """
@@ -316,7 +321,9 @@ class CarRental:
                 self.render()
 
             iteration += 1
-        raise ValueError("The policy did not converge. Check your inputs or look for bugs.")
+        raise ValueError(
+            "The policy did not converge. Check your inputs or look for bugs.")
+
 
 if __name__ == "__main__":
     env = CarRental()
