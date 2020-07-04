@@ -56,51 +56,66 @@ class Blackjack:
         return self.get_observation(), False
     
     def step(self, action):
-        # check natural win, player never hits
-        if self.is_natural(self.player) and not self.is_natural(self.dealer):
-            return self.get_observation(), +1, True
-            
+#         # check natural win, player never hits
+#         if self.is_natural(self.player):
+#             # if dealer doesn't have a natural, player wins
+#             if self.is_natural(self.dealer):
+#                 return self.get_observation(), 0, True
+#             else:
+#                 return self.get_observation(), +1, True
+        
+        # player plays
         if action:  # hit
             self.player += self.deal()
-            if self.score(self.player) > 21:  # bust
+            if self.score(self.player) > 21:  # bust?
                 return self.get_observation(), -1, True
-        else:  # stick, dealer's turn
-            while self.score(self.dealer) < 17:
-                self.dealer += self.deal()
-            if self.score(self.dealer) > 21:
-                return self.get_observation(), +1, True
-            elif self.score(self.dealer) == self.score(self.player):
-                return self.get_observation(), 0, True
-        p_score = self.score(self.player)
-        d_score = self.score(self.dealer)
-        reward = 1 if p_score > d_score else 0 if p_score == d_score else -1
-        return self.get_observation(), reward, True
+        else:  # stick
+            pass
+        player_score = self.score(self.player)
+        
+        # dealer's turn
+        while self.score(self.dealer) < 17:  # draw until we reach at least 17
+            self.dealer += self.deal()
+        dealer_score = self.score(self.dealer)
+        if dealer_score > 21:  # bust?
+            return self.get_observation(), +1, True
+        
+        # outcome
+        if player_score > dealer_score:
+            return self.get_observation(), +1, True
+        elif player_score == dealer_score:
+            return self.get_observation(), 0, True
+        else:
+             return self.get_observation(), -1, True
     
     def render(self):
         xticklabels = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
         yticklabels = range(12, 22)
-        fig, ax = plt.subplots(1, 2, figsize=(15, 5))
-        sns.heatmap(self.values[12:22, 1:, 0], cmap="gray", vmin=-1, vmax=1, xticklabels=xticklabels, yticklabels=yticklabels, annot=True, ax=ax[0])
-        ax[0].set_title("No usable Ace")
+        fig, ax = plt.subplots(1, 2, figsize=(25, 9))
+        sns.heatmap(self.values[12:22, 1:, 0], cmap="RdBu", vmin=-1, vmax=1, xticklabels=xticklabels, yticklabels=yticklabels, annot=True, ax=ax[0])
+        ax[0].set_title("V(π) with no usable Ace")
         ax[0].set_xlabel("Dealer showing")
-        ax[0].set_ylabel("Player showing")
-        sns.heatmap(self.values[12:22, 1:, 1], cmap="gray", vmin=-1, vmax=1, xticklabels=xticklabels, yticklabels=yticklabels, annot=True, ax=ax[1])
-        ax[1].set_title("Usable Ace")
+        ax[0].set_ylabel("Player sum")
+        sns.heatmap(self.values[12:22, 1:, 1], cmap="RdBu", vmin=-1, vmax=1, xticklabels=xticklabels, yticklabels=yticklabels, annot=True, ax=ax[1])
+        ax[1].set_title("V(π) with usable Ace")
         ax[1].set_xlabel("Dealer showing")
-        ax[1].set_ylabel("Player showing")
+        ax[1].set_ylabel("Player sum")
         plt.show()
     
-def mc_policy_evaluation(env, policy, first_visit=True):
+def mc_policy_evaluation(env, policy, iterations=100000, first_visit=True):
     counts = np.ones_like(env.values) * 1e-6
-    for k in range(10000):
+    for k in range(iterations):
         # run episode
+        print("MC iteration {}/{}\t".format(k, iterations), end="\r")
         obs, done = env.reset()
         while not done:
             obs, reward, done = env.step(policy[obs])
-#             print(obs)
+#         print(env, reward)
+#         print(obs)
         if counts[obs] > 0:
             env.values[obs] += reward
         counts[obs] += 1
+    print()
     return env.values / counts
     
 if __name__ == "__main__":
@@ -110,5 +125,9 @@ if __name__ == "__main__":
     
     # policy iteration
     env = Blackjack()
-    env.values = mc_policy_evaluation(env, policy)
+    env.values = mc_policy_evaluation(env, policy, 100000)
     env.render()
+    
+    env2 = Blackjack()
+    env2.values = mc_policy_evaluation(env2, policy, 500000)
+    env2.render()
