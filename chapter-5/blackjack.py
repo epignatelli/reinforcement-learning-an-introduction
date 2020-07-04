@@ -85,7 +85,7 @@ class Blackjack:
         if action:  # hit
             self.player += self.deal()
             if self.score(self.player) > 21:  # bust?
-                return self.get_observation(), -10., True
+                return self.get_observation(), -1., True
             else:  # if the player hits, the dealers doesn't play
                 # the episode does not end, the player may want to hit again
                 return self.get_observation(), 0., False
@@ -106,7 +106,7 @@ class Blackjack:
         elif player_score == dealer_score:
             return self.get_observation(), 0., True
         else:
-            return self.get_observation(), -10., True
+            return self.get_observation(), -1., True
 
     def render(self):
         xticklabels = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
