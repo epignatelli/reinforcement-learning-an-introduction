@@ -56,14 +56,6 @@ class Blackjack:
         return self.get_observation(), False
     
     def step(self, action):
-#         # check natural win, player never hits
-#         if self.is_natural(self.player):
-#             # if dealer doesn't have a natural, player wins
-#             if self.is_natural(self.dealer):
-#                 return self.get_observation(), 0, True
-#             else:
-#                 return self.get_observation(), +1, True
-        
         # player plays
         if action:  # hit
             self.player += self.deal()
