@@ -24,12 +24,12 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
   - Scheduled
 
 #### Chapter 4: Dynamic Programming ([figures](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4))
-  - [GridWorld: Iterative Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gridworld.py)
-  - [Jack's car rental: Policy Iteration](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/car_rental.py)
-  - [Gambler's Problem: Value Iteration](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gamblers_problem.py)
+  - [GridWorld: Dynamic Programming Prediction with Iterative Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gridworld.py)
+  - [Jack's car rental: Dynamic Programming Control with Policy Iteration](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/car_rental.py)
+  - [Gambler's Problem: Dynamic Programming Control with Value Iteration](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-4/gamblers_problem.py)
 
 #### Chapter 5: Monte Carlo Methods ([figures](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5))
-  - [Blackjack: Monte Carlo Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5/blackjack.py)
+  - [Blackjack: Monte Carlo Prediction with Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5/blackjack.py)
   - [WIP] [Soap Bubble: Independent state-value estimation]
 
 
