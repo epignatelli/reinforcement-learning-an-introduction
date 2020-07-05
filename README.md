@@ -34,8 +34,8 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
   - [Blackjack: Monte Carlo Prediction with Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5/blackjack.py)
   - [WIP] [Soap Bubble: Single state-value estimation]()
   - [WIP] [Blackjack: Monte Carlo Control with Monte Carlo ES]()
-  - [WIP] [Blackjack: On-Policy first-visit Monte Carlo Control]()
-  - [WIP] [Blackjack: Off-Policy Monte Carlo Prediction via Importance Sampling]()
+  - [WIP] [On-Policy first-visit Monte Carlo Control]()
+  - [WIP] [Off-Policy Monte Carlo Prediction via Importance Sampling]()
   - [WIP] 
 
 ## References
