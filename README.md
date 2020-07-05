@@ -8,6 +8,8 @@
 
 This repository contains a python implementation of the concepts described in the book _Reinforcement Learning: An Introduction_, by Sutton and Barto.
 
+The repository is still WIP. I will try to move linearly ahead with the book, you can check below for a roadmap of the immadiate actions.
+
 Please, feel free to raise issues to ask questions or flag flaws and mistakes in the implementation.  
 Should you find this useful for you, I would be grateful if you'd _star_:star: it :)
 
@@ -30,8 +32,11 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
 
 #### Chapter 5: Monte Carlo Methods ([figures](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5))
   - [Blackjack: Monte Carlo Prediction with Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5/blackjack.py)
-  - [WIP] [Soap Bubble: Independent state-value estimation]
-
+  - [WIP] [Soap Bubble: Independent state-value estimation]()
+  - [WIP] [Blackjack: Monte Carlo Control with Monte Carlo ES]()
+  - [WIP] [Blackjack: On-Policy first-visit Monte Carlo Control]()
+  - [WIP] [Blackjack: Off-Policy Monte Carlo Prediction via Importance Sampling]()
+  - [WIP] 
 
 ## References
 [1] R.  S.  Sutton,  A.  G.  Barto,  et  al. _Reinforcement  Learning:  an  Introduction_.  MIT  press, Cambridge, 2018.  
