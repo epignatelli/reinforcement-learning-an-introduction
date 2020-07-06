@@ -86,10 +86,11 @@ class Blackjack:
             self.player += self.deal()
             if self.score(self.player) > 21:  # bust?
                 return self.get_observation(), -1., True
-            else:  # if the player hits, the dealers doesn't play
+            else:  # if the player hits, the dealer doesn't play
                 # the episode does not end, the player may want to hit again
                 return self.get_observation(), 0., False
         else:  # stick
+            # dealer's turn now
             pass
         player_score = self.score(self.player)
 
