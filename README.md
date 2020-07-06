@@ -32,7 +32,7 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
 
 #### Chapter 5: Monte Carlo Methods ([figures](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5))
   - [Blackjack: Monte Carlo Prediction with Policy Evaluation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5/mc_policy_evaluation.py)
-  - [WIP] [Blackjack: Single state-value estimation]()
+  - [Blackjack: Single state-value estimation](https://github.com/epignatelli/reinforcement-learning-an-introduction/blob/master/chapter-5/mc_single_q_estimation.py)
   - [WIP] [Blackjack: Monte Carlo Control with Monte Carlo ES]()
   - [WIP] [On-Policy first-visit Monte Carlo Control]()
   - [WIP] [Off-Policy Monte Carlo Prediction via Importance Sampling]()
