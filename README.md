@@ -36,7 +36,8 @@ Should you find this useful for you, I would be grateful if you'd _star_:star: i
   - [WIP] [Blackjack: Monte Carlo Control with Monte Carlo ES]()
   - [WIP] [On-Policy first-visit Monte Carlo Control]()
   - [WIP] [Off-Policy Monte Carlo Prediction via Importance Sampling]()
-  - [WIP] 
+  - [WIP] [Off-Policy Monte Carlo Prediction with Policy Evaluation]()
+  - [WIP] [Off-Policy Monte Carlo Control]()
 
 ## References
 [1] R.  S.  Sutton,  A.  G.  Barto,  et  al. _Reinforcement  Learning:  an  Introduction_.  MIT  press, Cambridge, 2018.  
