@@ -7,13 +7,19 @@ def mc_policy_evaluation(env, policy, iterations=10000, first_visit=True):
     for k in range(iterations):
         # run episode
         print("MC iteration {}/{}\t".format(k + 1, iterations), end="\r")
+        # select starting state
         obs, done = env.reset()
         while not done:
+            # cache starting state
             starting_state = obs
+            # iterate on each action and pick the one tha gives the highest return
             obs, reward, done = env.step(policy[obs])
-            # print(env, obs, reward, done)
+            # if we use first-visit MC, we skip the first time we see the state
             if not (first_visit and counts[starting_state] == 0):
+                # update the action-value state
+                # note that we sum the value and average only at the end of the iteration
                 env.values[starting_state] += reward
+                policy[obs] = np.argmax()
             counts[starting_state] += 1
     print()
     return env.values / counts

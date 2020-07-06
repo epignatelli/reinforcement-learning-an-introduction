@@ -16,17 +16,21 @@ DECK = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 class Blackjack:
     """
     A Blackjack environment designed for Reinforcement Learning applications,
-    tailored on the Monte Carlo Value Estimation from the book:
-    Reinforcement Learning: An Introduction
-    http://incompleteideas.net/book/code/blackjack1.lisp
+    tailored on the Monte Carlo Value Estimation illustrated in the book
+    Reinforcement Learning: An Introduction, R. S. Sutton, A. G. Barto, 2nd Edition, 2018.
+    Original code from Rich available at http://incompleteideas.net/book/code/blackjack1.lisp
     """
 
     def __init__(self):
-        self.values = np.zeros((32, 11, 2))
+        self.values = np.zeros(self.observation_space)
         self.reset()
 
     def __str__(self):
         return "Player: {}, Dealer: {}".format(self.player, self.dealer)
+
+    @property
+    def observation_space(self):
+        return (32, 11, 2)
 
     def deal(self, n=1):
         """
