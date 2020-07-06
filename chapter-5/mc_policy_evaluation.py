@@ -9,11 +9,12 @@ def mc_policy_evaluation(env, policy, iterations=10000, first_visit=True):
         print("MC iteration {}/{}\t".format(k + 1, iterations), end="\r")
         obs, done = env.reset()
         while not done:
+            starting_state = obs
             obs, reward, done = env.step(policy[obs])
             # print(env, obs, reward, done)
-            if not (first_visit and counts[obs] == 0):
-                env.values[obs] += reward
-            counts[obs] += 1
+            if not (first_visit and counts[starting_state] == 0):
+                env.values[starting_state] += reward
+            counts[starting_state] += 1
     print()
     return env.values / counts
 
