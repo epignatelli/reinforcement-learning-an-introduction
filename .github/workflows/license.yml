@@ -20,5 +20,8 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: Check license in files
-      uses: datreeio/validate-license-action@v1.0.0
+    - name: Licensed CI
+      uses: jonabc/licensed-ci@v1.5.0
+      with:
+        # Access token to push license updates to GitHub
+        github_token: ${{ secrets.GITHUB_TOKEN }}
