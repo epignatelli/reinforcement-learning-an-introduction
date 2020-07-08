@@ -25,3 +25,4 @@ jobs:
       with:
         # Access token to push license updates to GitHub
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        config_file: license.yml
