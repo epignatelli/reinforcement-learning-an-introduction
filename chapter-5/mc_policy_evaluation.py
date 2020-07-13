@@ -42,7 +42,6 @@ def mc_policy_evaluation(env, policy, iterations=10000, first_visit=True):
                 # update the action-value state
                 # note that we sum the value and average only at the end of the iteration
                 env.values[starting_state] += reward
-                policy[obs] = np.argmax()
             counts[starting_state] += 1
     print()
     return env.values / counts

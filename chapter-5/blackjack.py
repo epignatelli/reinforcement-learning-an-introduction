@@ -136,10 +136,10 @@ class Blackjack:
         else:
             return self.get_observation(), -1., True
 
-    def render(self):
+    def render(self, policy=None):
         xticklabels = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
         yticklabels = range(12, 22)
-        fig, ax = plt.subplots(2, 1, figsize=(7, 25))
+        fig, ax = plt.subplots(2, 1, figsize=(7, 15))
         sns.heatmap(self.values[12:22, 1:, 0], cmap="RdBu", vmin=-1, vmax=1,
                     xticklabels=xticklabels, yticklabels=yticklabels, annot=True, ax=ax[0])
         ax[0].set_title("V(π) with no usable Ace")
