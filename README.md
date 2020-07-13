@@ -7,6 +7,7 @@
 #### R. S. Sutton and A. G. Barto
 
 This repository contains a python implementation of the concepts described in the book _Reinforcement Learning: An Introduction_, by Sutton and Barto.
+For each chapter you will find a `.py` file that contains the main implementation, and a `.ipynb` used to quickly visualise figures on `github.com`.
 
 The repository is still WIP. I will try to move linearly ahead with the book, you can check below for a roadmap of the immadiate actions.
 
